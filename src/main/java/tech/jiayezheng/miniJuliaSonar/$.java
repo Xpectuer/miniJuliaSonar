@@ -4,10 +4,17 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class $ {
+
+
+    private static boolean debug = false;
+
+    public void setDebug(boolean debug) {
+        $.debug = debug;
+    }
+
 
     private $() {
 
@@ -73,6 +80,13 @@ public class $ {
     public static void msg(String msg) {
         // TODO: Resolve Analyzer Options
         System.out.println(msg);
+    }
+
+    public static void debugf(String format,Object... args) {
+        if($.debug) {
+            System.out.printf(format,args);
+        }
+
     }
 
 

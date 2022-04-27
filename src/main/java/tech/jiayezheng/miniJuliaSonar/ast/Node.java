@@ -1,19 +1,13 @@
 package tech.jiayezheng.miniJuliaSonar.ast;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Optional;
 
 public abstract class Node implements java.io.Serializable, Comparable<Object> {
     public NodeType nodeType;
-    public int line;
-    // Note: NOT the char col; but the position of lex of its line.
-    public int col;
     public int start;
     public int end;
 
-    public String name;
     public String file;
     public Node parent = null;
 
@@ -22,14 +16,10 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
     }
 
 
-    public Node(NodeType nodeType, int line, int col, int start, int end,String file ,String name, Node parent) {
+    public Node(NodeType nodeType, int start, int end,String file) {
         this.nodeType = nodeType;
-        this.line = line;
-        this.col = col;
         this.start = start;
         this.end = end;
-        this.name = name;
-        this.parent = parent;
         this.file = file;
     }
 
@@ -93,8 +83,7 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
     @Override
     public String toString() {
         return "Node{"+
-                ", name='" + name+
-                ", file='" + file + '\'' +
+                "file='" + file + '\'' +
                 "start=" + start +  '\'' +
                 '}';
     }

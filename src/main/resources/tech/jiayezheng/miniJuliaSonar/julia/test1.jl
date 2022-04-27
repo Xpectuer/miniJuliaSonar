@@ -1,5 +1,10 @@
 module mod
     a= 0
+    function g(a)
+        while a < 10
+            a + 1
+        end
+    end
     function f(a)
         if a == 0
             b = 2
@@ -11,6 +16,8 @@ module mod
             b = true
         end
         a = "nm\$l"
+        deadbeef = 'n'
+        deadbeef1 = (a<b<c);
 
         i = 0
         while i < 10
@@ -21,7 +28,19 @@ module mod
             i+=1
         end
 
+        a = b = c = 2
+        a = a - b * (-c + -d)
+        a = a ⊽ b
+        strs = """
+            dsadsadasdsadsadsa
+            1232132132132132131
+            """
+        long_line = "str\
+                        123213213"
+        t = a != b && a==b
+
+        deadbeef = a+-+-+-1
         b
     end
-    f(a)
+    (g ∘ f)(a + 2)
 end
