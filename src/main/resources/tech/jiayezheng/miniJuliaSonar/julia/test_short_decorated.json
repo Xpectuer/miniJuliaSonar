@@ -1,0 +1,525 @@
+{
+  "julia_sonar_node_type": "ROOT",
+  "value": "ROOT",
+  "has_args": true,
+  "args": [
+    {
+      "julia_sonar_node_type": "BEGIN",
+      "value": "begin",
+      "has_args": false,
+      "args": [],
+      "_start": -5,
+      "_end": 0
+    },
+    {
+      "julia_sonar_node_type": "Assign",
+      "value": "nothing",
+      "has_args": true,
+      "args": [
+        {
+          "julia_sonar_node_type": "call",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "IDENTIFIER",
+              "value": "f",
+              "has_args": false,
+              "args": [],
+              "_start": 226,
+              "_end": 227
+            },
+            {
+              "julia_sonar_node_type": "LPAREN",
+              "value": "(",
+              "has_args": false,
+              "args": [],
+              "_start": 227,
+              "_end": 228
+            },
+            {
+              "julia_sonar_node_type": "IDENTIFIER",
+              "value": "a",
+              "has_args": false,
+              "args": [],
+              "_start": 228,
+              "_end": 229
+            },
+            {
+              "julia_sonar_node_type": "RPAREN",
+              "value": ")",
+              "has_args": false,
+              "args": [],
+              "_start": 229,
+              "_end": 230
+            }
+          ],
+          "_start": 226,
+          "_end": 227
+        },
+        {
+          "julia_sonar_node_type": "OPERATOR",
+          "value": "=",
+          "has_args": false,
+          "args": [],
+          "_start": 231,
+          "_end": 232
+        },
+        {
+          "julia_sonar_node_type": "block",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "IDENTIFIER",
+              "value": "a",
+              "has_args": false,
+              "args": [],
+              "_start": 233,
+              "_end": 234
+            }
+          ],
+          "_start": 233,
+          "_end": 234
+        }
+      ],
+      "_start": 226,
+      "_end": 227
+    },
+    {
+      "julia_sonar_node_type": "do",
+      "value": "nothing",
+      "has_args": true,
+      "args": [
+        {
+          "julia_sonar_node_type": "call",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "IDENTIFIER",
+              "value": "map",
+              "has_args": false,
+              "args": [],
+              "_start": 236,
+              "_end": 239
+            },
+            {
+              "julia_sonar_node_type": "LPAREN",
+              "value": "(",
+              "has_args": false,
+              "args": [],
+              "_start": 239,
+              "_end": 240
+            },
+            {
+              "julia_sonar_node_type": "Arithmetic",
+              "value": "nothing",
+              "has_args": true,
+              "args": [
+                {
+                  "julia_sonar_node_type": "INTEGER",
+                  "value": "1",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 240,
+                  "_end": 241
+                },
+                {
+                  "julia_sonar_node_type": "OPERATOR",
+                  "value": ":",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 241,
+                  "_end": 242
+                },
+                {
+                  "julia_sonar_node_type": "INTEGER",
+                  "value": "10",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 242,
+                  "_end": 244
+                }
+              ],
+              "_start": 240,
+              "_end": 241
+            },
+            {
+              "julia_sonar_node_type": "RPAREN",
+              "value": ")",
+              "has_args": false,
+              "args": [],
+              "_start": 244,
+              "_end": 245
+            }
+          ],
+          "_start": 236,
+          "_end": 239
+        },
+        {
+          "julia_sonar_node_type": "DO",
+          "value": "do",
+          "has_args": false,
+          "args": [],
+          "_start": 246,
+          "_end": 248
+        },
+        {
+          "julia_sonar_node_type": "Lambda",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "tuple",
+              "value": "nothing",
+              "has_args": true,
+              "args": [
+                {
+                  "julia_sonar_node_type": "IDENTIFIER",
+                  "value": "x",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 249,
+                  "_end": 250
+                }
+              ],
+              "_start": 249,
+              "_end": 250
+            },
+            {
+              "julia_sonar_node_type": "block",
+              "value": "nothing",
+              "has_args": true,
+              "args": [
+                {
+                  "julia_sonar_node_type": "Arithmetic",
+                  "value": "nothing",
+                  "has_args": true,
+                  "args": [
+                    {
+                      "julia_sonar_node_type": "INTEGER",
+                      "value": "2",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 255,
+                      "_end": 256
+                    },
+                    {
+                      "julia_sonar_node_type": "OPERATOR",
+                      "value": "*",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 256,
+                      "_end": 256
+                    },
+                    {
+                      "julia_sonar_node_type": "IDENTIFIER",
+                      "value": "x",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 256,
+                      "_end": 257
+                    }
+                  ],
+                  "_start": 255,
+                  "_end": 256
+                }
+              ],
+              "_start": 255,
+              "_end": 256
+            }
+          ],
+          "_start": 249,
+          "_end": 250
+        },
+        {
+          "julia_sonar_node_type": "END",
+          "value": "end",
+          "has_args": false,
+          "args": [],
+          "_start": 258,
+          "_end": 261
+        }
+      ],
+      "_start": 236,
+      "_end": 239
+    },
+    {
+      "julia_sonar_node_type": "try",
+      "value": "nothing",
+      "has_args": true,
+      "args": [
+        {
+          "julia_sonar_node_type": "TRY",
+          "value": "try",
+          "has_args": false,
+          "args": [],
+          "_start": 302,
+          "_end": 305
+        },
+        {
+          "julia_sonar_node_type": "block",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "do",
+              "value": "nothing",
+              "has_args": true,
+              "args": [
+                {
+                  "julia_sonar_node_type": "call",
+                  "value": "nothing",
+                  "has_args": true,
+                  "args": [
+                    {
+                      "julia_sonar_node_type": "IDENTIFIER",
+                      "value": "open",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 310,
+                      "_end": 314
+                    },
+                    {
+                      "julia_sonar_node_type": "LPAREN",
+                      "value": "(",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 314,
+                      "_end": 315
+                    },
+                    {
+                      "julia_sonar_node_type": "STRING",
+                      "value": "/danger",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 315,
+                      "_end": 324
+                    },
+                    {
+                      "julia_sonar_node_type": "COMMA",
+                      "value": ",",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 324,
+                      "_end": 325
+                    },
+                    {
+                      "julia_sonar_node_type": "STRING",
+                      "value": "w",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 326,
+                      "_end": 329
+                    },
+                    {
+                      "julia_sonar_node_type": "RPAREN",
+                      "value": ")",
+                      "has_args": false,
+                      "args": [],
+                      "_start": 329,
+                      "_end": 330
+                    }
+                  ],
+                  "_start": 310,
+                  "_end": 314
+                },
+                {
+                  "julia_sonar_node_type": "DO",
+                  "value": "do",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 331,
+                  "_end": 333
+                },
+                {
+                  "julia_sonar_node_type": "Lambda",
+                  "value": "nothing",
+                  "has_args": true,
+                  "args": [
+                    {
+                      "julia_sonar_node_type": "tuple",
+                      "value": "nothing",
+                      "has_args": true,
+                      "args": [
+                        {
+                          "julia_sonar_node_type": "IDENTIFIER",
+                          "value": "f",
+                          "has_args": false,
+                          "args": [],
+                          "_start": 334,
+                          "_end": 335
+                        }
+                      ],
+                      "_start": 334,
+                      "_end": 335
+                    },
+                    {
+                      "julia_sonar_node_type": "block",
+                      "value": "nothing",
+                      "has_args": true,
+                      "args": [
+                        {
+                          "julia_sonar_node_type": "call",
+                          "value": "nothing",
+                          "has_args": true,
+                          "args": [
+                            {
+                              "julia_sonar_node_type": "IDENTIFIER",
+                              "value": "println",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 344,
+                              "_end": 351
+                            },
+                            {
+                              "julia_sonar_node_type": "LPAREN",
+                              "value": "(",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 351,
+                              "_end": 352
+                            },
+                            {
+                              "julia_sonar_node_type": "IDENTIFIER",
+                              "value": "f",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 352,
+                              "_end": 353
+                            },
+                            {
+                              "julia_sonar_node_type": "COMMA",
+                              "value": ",",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 353,
+                              "_end": 354
+                            },
+                            {
+                              "julia_sonar_node_type": "STRING",
+                              "value": "Hello",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 355,
+                              "_end": 362
+                            },
+                            {
+                              "julia_sonar_node_type": "RPAREN",
+                              "value": ")",
+                              "has_args": false,
+                              "args": [],
+                              "_start": 362,
+                              "_end": 363
+                            }
+                          ],
+                          "_start": 344,
+                          "_end": 351
+                        }
+                      ],
+                      "_start": 344,
+                      "_end": 351
+                    }
+                  ],
+                  "_start": 334,
+                  "_end": 335
+                },
+                {
+                  "julia_sonar_node_type": "END",
+                  "value": "end",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 368,
+                  "_end": 371
+                }
+              ],
+              "_start": 310,
+              "_end": 314
+            }
+          ],
+          "_start": 310,
+          "_end": 314
+        },
+        {
+          "julia_sonar_node_type": "CATCH",
+          "value": "catch",
+          "has_args": false,
+          "args": [],
+          "_start": 372,
+          "_end": 377
+        },
+        {
+          "julia_sonar_node_type": "FALSE",
+          "value": "",
+          "has_args": false,
+          "args": [],
+          "_start": 382,
+          "_end": 382
+        },
+        {
+          "julia_sonar_node_type": "block",
+          "value": "nothing",
+          "has_args": true,
+          "args": [
+            {
+              "julia_sonar_node_type": "macrocall",
+              "value": "nothing",
+              "has_args": true,
+              "args": [
+                {
+                  "julia_sonar_node_type": "IDENTIFIER",
+                  "value": "@warn",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 382,
+                  "_end": 387
+                },
+                {
+                  "julia_sonar_node_type": "NOTHING",
+                  "value": "nothing",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 388,
+                  "_end": 388
+                },
+                {
+                  "julia_sonar_node_type": "STRING",
+                  "value": "Could not write file.",
+                  "has_args": false,
+                  "args": [],
+                  "_start": 388,
+                  "_end": 411
+                }
+              ],
+              "_start": 382,
+              "_end": 387
+            }
+          ],
+          "_start": 382,
+          "_end": 387
+        },
+        {
+          "julia_sonar_node_type": "END",
+          "value": "end",
+          "has_args": false,
+          "args": [],
+          "_start": 412,
+          "_end": 415
+        }
+      ],
+      "_start": 302,
+      "_end": 305
+    },
+    {
+      "julia_sonar_node_type": "END",
+      "value": "end",
+      "has_args": false,
+      "args": [],
+      "_start": 416,
+      "_end": 419
+    }
+  ],
+  "_start": -1,
+  "_end": -1
+}
