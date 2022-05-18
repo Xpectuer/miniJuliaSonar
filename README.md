@@ -1,6 +1,6 @@
 - [x] test trigger module of dump_julia
 - [x] Julia Parser
-- [ ] Type Interferences
+- [x] Type Interferences
 - [ ] Html Output
 
 - [x] Chained Arithmetic
