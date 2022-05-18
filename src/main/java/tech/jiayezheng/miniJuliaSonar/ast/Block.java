@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Block extends Node {
     public List<Node> args;
-    public End _end;
 
     public Block(List<Node> args, int start, int end, String file) {
         super(NodeType.Block, start, end, file);
@@ -14,8 +13,8 @@ public class Block extends Node {
 
     @Override
     public String toString() {
-        return "(Block:" +
-                "args:" + args +
+        return "(Block " +
+                  args +
                 ')';
     }
 }

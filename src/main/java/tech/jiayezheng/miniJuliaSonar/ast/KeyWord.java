@@ -6,6 +6,7 @@ public class KeyWord extends Node {
     public KeyWord(String name, int start, int end, String file) {
         super(NodeType.KeyWord, start, end, file);
         this.name = name;
+
     }
 
     @Override

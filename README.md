@@ -1,4 +1,13 @@
 - [x] test trigger module of dump_julia
-- [ ] Vectorized Operators
-- [x] Chained Comparisons
+- [x] Julia Parser
+- [ ] Type Interferences
+- [ ] Html Output
+
+- [x] Chained Arithmetic
+- [ ] Build-in Library Analysis
+- [ ] assign in global expr 
+### Metaprogramming
 - [ ] macro support for julia
+- [ ] Quote & Expr ... type
+### Parallelism
+- [ ] Vectorized "dot" Operators

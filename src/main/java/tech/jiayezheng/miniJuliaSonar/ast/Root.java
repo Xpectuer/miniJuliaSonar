@@ -6,14 +6,14 @@ public class Root extends Node{
     public List<Node> args;
 
     public Root( List<Node> args, String file) {
-        super(NodeType.ROOT, 0, 0, file);
+        super(NodeType.Root, 0, 0, file);
         this.args = args;
         addChildren(args);
     }
 
     @Override
     public String toString() {
-        return "(ROOT)";
+        return "(ROOT "+args+")";
 
     }
 }

@@ -5,9 +5,10 @@ public class UnaryOp extends Node {
     public Node operand;
 
     public UnaryOp(Op op, Node operand, int start, int end, String file) {
-        super(NodeType.Operator, start, end, file);
+        super(NodeType.UnaryOp, start, end, file);
         this.op = op;
         this.operand = operand;
+        addChildren(operand);
     }
 
     @Override

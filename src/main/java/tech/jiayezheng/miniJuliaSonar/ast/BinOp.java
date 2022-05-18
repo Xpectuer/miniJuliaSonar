@@ -4,12 +4,14 @@ public class BinOp extends Node {
     public Op op;
     public Node left;
     public Node right;
+    public boolean vectorized;
 
     public BinOp(Op op, Node left, Node right, int start, int end, String file) {
         super(NodeType.BinOp, start, end, file);
         this.op = op;
         this.left = left;
         this.right = right;
+        addChildren(left,right);
     }
 
     @Override

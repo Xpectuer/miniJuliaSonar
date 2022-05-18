@@ -10,6 +10,6 @@ public class Operator extends Node{
 
     @Override
     public String toString() {
-        return "(Operator:" + op + ')';
+        return "(Operator:" + op.getRep() + this.start+')';
     }
 }

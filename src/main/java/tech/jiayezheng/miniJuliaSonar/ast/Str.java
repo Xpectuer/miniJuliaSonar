@@ -6,4 +6,9 @@ public class Str extends Node {
         super(NodeType.Str, start, end, file);
         this.s = s;
     }
+
+    @Override
+    public String toString() {
+        return String.format("\"%s\"",s);
+    }
 }

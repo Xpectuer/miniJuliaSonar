@@ -167,7 +167,7 @@ public class OperatorParserTest {
         }
 
         if (unaryBuffer.size() == 1) {
-            Symbol ret = (Symbol) unaryBuffer.get(0);
+            Node ret = unaryBuffer.get(0);
             unaryBuffer.clear();
             return ret;
         }

@@ -8,5 +8,6 @@ public class KW extends Node {
         super(NodeType.KW, start, end, file);
         this.key = key;
         this.value = value;
+        addChildren(key,value);
     }
 }

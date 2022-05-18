@@ -1,8 +1,10 @@
+hh() = 1
+a = b = c = d = 2
 module mod
-    a= 0
-    function g(a)
+    a = 0
+    function g(a, b, varargs...; c=2, kwargs...)
         while a < 10
-            a + 1
+            a = a + 1
         end
     end
     function f(a)
@@ -17,18 +19,18 @@ module mod
         end
         a = "nm\$l"
         deadbeef = 'n'
-        deadbeef1 = (a<b<c);
+        deadbeef1 = (3 < 1);
 
         i = 0
-        while i < 10
+        while 1 < i < 10
             i+=1
         end
 
-        for j in 1:10
+        for j in [1, 2, 3, 4]
             i+=1
         end
 
-        a = b = c = 2
+
         a = a - b * (-c + -d)
         a = a ⊽ b
         strs = """
@@ -37,10 +39,53 @@ module mod
             """
         long_line = "str\
                         123213213"
-        t = a != b && a==b
+        t = a != b && a == b
 
-        deadbeef = a+-+-+-1
+        deadbeef = a + -+-+-1
         b
     end
-    (g ∘ f)(a + 2)
+
+    h(a) = 2a
+    (h ∘ g ∘ f)(a + 2)
+    g ∘ f(2)
 end
+
+l = [1, 2, 3, 4]
+l[1]
+
+abstract type MBase <: Real end
+primitive type Intersting <: Number 40 end
+mutable struct Test <: MBase
+    a :: Int
+    b :: Char
+end
+
+test = Test(1,'2')
+test.a.b.a.b.a.b
+
+pair = 1 => 2
+
+deadbeef, beef1 = 1, 1
+
+b = 2
+function bar()
+    v :: Pair{T,S} where T
+    v1 :: Pair{T,S} where {T,S}
+    v2 :: Pair{T,S} where {T <: Real,S <: Real}
+    return 1
+end
+bar()
+
+ff = 123.123213
+ff1 = 123.1
+
+ f = open("/danger", "w")
+ try
+        println(f, "Hello")
+    catch e
+        error("Could not write file.")
+    finally
+        close(f)
+    end
+
+a = missing

@@ -2,51 +2,27 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
 import tech.jiayezheng.miniJuliaSonar.$;
-import tech.jiayezheng.miniJuliaSonar.ast.Node;
-import tech.jiayezheng.miniJuliaSonar.ast.NodeType;
-import tech.jiayezheng.miniJuliaSonar.ast.Op;
-import tech.jiayezheng.miniJuliaSonar.ast.Root;
-
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 
 public class MiscsTest {
 
+    private String json_path = "/Users/zhengjiaye/projects/java_proj/miniJuliaSonar/src/main/resources/tech/jiayezheng/miniJuliaSonar/julia/test1.json";
+
+
     @Test
     public void test() {
-        testJsonBool();
+        // testJsonFromFile(json_path);
+        //  Generator.genConvertOp();
+         Generator.genVisitors();
+        testSysProperty();
     }
 
-    private void genConvertOp() {
-        String format =  "if(value.equals(\"%1$s\")) {\n" +
-                "\t\treturn Op.%2$s;\n" +
-                "}\n\n";
-        String format1 =  "if(value.equals(\"\\%1$s\")) {\n" +
-                "\t\treturn Op.%2$s;\n" +
-                "}\n\n";
-
-
-        for(Op op : Op.values()) {
-            if(op.getRep().equals("\\")) {
-                System.out.printf((format1) + "%n",op.getRep(),op.name());
-
-            } else {
-                System.out.printf((format) + "%n",op.getRep(),op.name());
-            }
-
-        }
+    private void testJsonFromFile(String path) {
+        String json = $.readFile(path);
+        JSONObject jsonObject = (JSONObject) JSON.parse(json);
+        System.out.println(jsonObject);
     }
-
-    private void testJsonBool() {
-        String json = "{\"key\":false}";
-        JSONObject jobj= JSON.parseObject(json);
-
-        Boolean b = (Boolean) jobj.get("key");
-        System.out.println(b);
+    private void testSysProperty() {
+        System.out.println(System.getProperty("os.arch"));
     }
-
-
 }

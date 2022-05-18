@@ -61,9 +61,17 @@ public enum Op {
 
 
     // miscs
+    VarArg("..."),
+    Mapsto("=>"),
+    Where("where"),
+    SubType("<:"),
+    BaseType(">:"),
+    Dot("."),
+    FuncCombine("∘"),
     Assign("="),
     Lambda("->"),
     Range(":"),
+    TypeDecl("::"),
     Unsupported(";)");
 
     //  ============================================================
@@ -85,15 +93,13 @@ public enum Op {
     public static boolean isBoolean(Op op) {
         return op == Eq ||
                 op == NotEq ||
+                op == NotEqual ||
                 op == Lt ||
                 op == LtE ||
                 op == LtEqual ||
                 op == Gt ||
                 op == GtE ||
                 op == GtEqual ||
-                op == Not ||
-                op == And ||
-                op == Or ||
                 op == In ||
                 op == In1;
     }

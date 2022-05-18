@@ -11,6 +11,9 @@ public class FuncDef extends Node {
     //  f️(a,b=1) ☑️
     //  f(a=1,b) ❌
     public List<Node> defaults;
+    public Symbol vararg;
+    public Symbol kwarg;
+
     public Node body;
     public End end;
     public boolean called = false;
@@ -34,6 +37,16 @@ public class FuncDef extends Node {
         addChildren(name, body);
         addChildren(params);
         addChildren(defaults);
+    }
+
+    public void setVararg(Symbol vararg) {
+        this.vararg = vararg;
+        addChildren(vararg);
+    }
+
+    public void setKWarg(Symbol kwarg) {
+        this.kwarg = kwarg;
+        addChildren(kwarg);
     }
 
     private static int lambdaCounter = 0;
@@ -70,7 +83,7 @@ public class FuncDef extends Node {
             stack_symbol.addLast(params.get(j));
         }
 
-        while(!stack_symbol.isEmpty()) {
+        while (!stack_symbol.isEmpty()) {
             sb.append(stack_symbol.pollLast());
             sb.append(" ");
         }

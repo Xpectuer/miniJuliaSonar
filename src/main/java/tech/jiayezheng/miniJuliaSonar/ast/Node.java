@@ -10,13 +10,14 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
 
     public String file;
     public Node parent = null;
+    public String name;
 
     public Node() {
 
     }
 
 
-    public Node(NodeType nodeType, int start, int end,String file) {
+    public Node(NodeType nodeType, int start, int end, String file) {
         this.nodeType = nodeType;
         this.start = start;
         this.end = end;
@@ -28,16 +29,16 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
     }
 
     public Node getASTRoot() {
-        if(parent == null) {
+        if (parent == null) {
             return this;
         }
         return parent.getASTRoot();
     }
 
     public void addChildren(Node... nodes) {
-        if(nodes != null) {
-            for(Node node : nodes) {
-                if(node != null) {
+        if (nodes != null) {
+            for (Node node : nodes) {
+                if (node != null) {
                     node.setParent(this);
                 }
             }
@@ -45,9 +46,9 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
     }
 
     public void addChildren(Collection<? extends Node> nodes) {
-        if(nodes != null) {
-            for(Node node : nodes) {
-                if(node != null) {
+        if (nodes != null) {
+            for (Node node : nodes) {
+                if (node != null) {
                     node.setParent(this);
                 }
             }
@@ -68,12 +69,12 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(start, end, file);
+        return (file + ":" + start + ":" + end).hashCode();
     }
 
     @Override
     public int compareTo(Object o) {
-        if(o instanceof Node) {
+        if (o instanceof Node) {
             return start - ((Node) o).start;
         } else {
             return -1;
@@ -82,9 +83,11 @@ public abstract class Node implements java.io.Serializable, Comparable<Object> {
 
     @Override
     public String toString() {
-        return "Node{"+
-                "file='" + file + '\'' +
-                "start=" + start +  '\'' +
-                '}';
+        return "(Node" +
+                " file:'" + file + '\'' +
+                " start:'" + start + '\'' +
+                ')';
     }
+
+    public  String toDisplay() {return "";}
 }
