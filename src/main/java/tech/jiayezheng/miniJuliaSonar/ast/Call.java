@@ -6,6 +6,8 @@ public class Call extends Node {
     public Node name;
     public List<Node> args;
     public List<KW> keywords;
+    // struct initialization?
+    public boolean isInit = false;
 
     public Call(Node name, List<Node> args, List<KW> keywords, int start, int end, String file) {
         this(name,args, start, end, file);
@@ -30,7 +32,12 @@ public class Call extends Node {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("(call %s", name));
+        if(isInit) {
+            sb.append(String.format("(init %s", name));
+        } else {
+            sb.append(String.format("(call %s", name));
+        }
+
         if(args != null) {
             args.forEach((s) -> sb.append(String.format(" %s", s)));
         }
@@ -41,5 +48,9 @@ public class Call extends Node {
     public void setArgs(List<Node> args) {
         this.args = args;
         addChildren(args);
+    }
+
+    public void markInit() {
+        this.isInit = true;
     }
 }

@@ -587,6 +587,7 @@ public class $ {
         return sb.toString();
     }
 
+    // cancel duplication
     public static List<List<Binding>> correlateBindings(List<Binding> bindings) {
         Map<Integer, List<Binding>> bdHash = new HashMap<>();
         for (Binding b : bindings) {
@@ -612,8 +613,8 @@ public class $ {
     }
 
     public static void debugf(String format, Object... args) {
-        if(Analyzer.self.hasOption("debug")) {
-            System.out.printf(format,args);
+        if (Analyzer.self.hasOption("debug")) {
+            System.out.printf(format, args);
             System.out.println();
         }
     }

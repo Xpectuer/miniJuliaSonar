@@ -14,40 +14,6 @@ import static tech.jiayezheng.miniJuliaSonar.Binding.Kind.*;
 
 
 public class TypeInferencer implements Visitor1<Type, State> {
-    @Override
-    public Type visit(Root node, State s) {
-        // mark global
-        for (Node n : node.args) {
-            // global type declare is not supported
-            if (n instanceof Global) {
-                for (Node e : ((Global) n).names) {
-                    if (e instanceof Symbol) {
-                        Symbol symbol = (Symbol) e;
-                        s.addGlobalSymbol(symbol.name);
-                        Set<Binding> nb = s.lookup(symbol.name);
-                        if (nb != null) {
-                            Analyzer.self.putRef(symbol, nb);
-                        }
-                    }
-                }
-            }
-        }
-
-        boolean returned = false;
-        Type retType = Types.UNKNOWN;
-        for (Node n : node.args) {
-            Type t = visit(n, s);
-
-            if (!returned) {
-                retType = UnionType.union(retType, t);
-                if (!UnionType.contains(t, Types.CONT)) {
-                    returned = true;
-                    retType = UnionType.remove(retType, Types.CONT);
-                }
-            }
-        }
-        return retType;
-    }
 
     @Override
     public Type visit(KeyWord node, State s) {
@@ -155,8 +121,8 @@ public class TypeInferencer implements Visitor1<Type, State> {
             Set<Type> types = ((UnionType) nameType).types;
             Type resultType = Types.UNKNOWN;
             for (Type funType : types) {
-                Type retureType = resolveCall(funType, positional, kwTypes, node);
-                resultType = UnionType.union(resultType, retureType);
+                Type returnType = resolveCall(funType, positional, kwTypes, node);
+                resultType = UnionType.union(resultType, returnType);
             }
             return resultType;
         } else {
@@ -456,19 +422,22 @@ public class TypeInferencer implements Visitor1<Type, State> {
     public Type visit(StructDef node, State s) {
         StructType structType = new StructType(node.name.name, s);
         List<Type> baseType = new ArrayList<>();
-        Type base = visit(node.baseType, s);
-        if (base instanceof StructType) {
-            structType.addBase(base);
-        } else if (base instanceof UnionType) {
-            for (Type parent : ((UnionType) baseType).types) {
-                structType.addBase(parent);
-            }
-        } else {
-            addWarningToNode(node.baseType, base + " is not a class");
-        }
-        baseType.add(base);
 
-        bind(s, node.name, structType, DATATYPE);
+        if(node.baseType != null) {
+            Type base = visit(node.baseType, s);
+            if (base instanceof StructType) {
+                structType.addBase(base);
+            } else if (base instanceof UnionType) {
+                for (Type parent : ((UnionType) baseType).types) {
+                    structType.addBase(parent);
+                }
+            } else {
+                addWarningToNode(node.baseType, base + " is not a class");
+            }
+            baseType.add(base);
+        }
+
+        bind(s, node.name, structType, STRUCT);
         if (node.body != null) {
             visit(node.body, structType.table);
         }
@@ -839,6 +808,8 @@ public class TypeInferencer implements Visitor1<Type, State> {
                       @Nullable Map<String, Type> kwTypes,
                       @Nullable Call call) {
 
+
+
         Analyzer.self.removeUncalled(func);
 
         if (func != null && !func.func.called) {
@@ -895,6 +866,7 @@ public class TypeInferencer implements Visitor1<Type, State> {
 
     }
 
+    // todo: return last stmt
     static boolean missingReturn(@NotNull Type toType) {
         boolean hasNone = false;
         boolean hasOther = false;

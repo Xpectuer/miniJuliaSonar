@@ -13,13 +13,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import tech.jiayezheng.miniJuliaSonar.ast.Dummy;
 import tech.jiayezheng.miniJuliaSonar.ast.Node;
 
 public class TestInference {
-    private static final Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+
     private String testFile;
     private String expecteRefsFile;
     private String missingRefsFile;

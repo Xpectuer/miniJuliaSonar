@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload Source For Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        .bkg {
+            /* MacBook Pro */
+
+            position: relative;
+            width: 1440px;
+            height: 900px;
+            background: #FFFFFF;
+        }
+
+        .result {
+            /* result */
+
+            position: absolute;
+            left: 727px;
+            top: 154px;
+            width: 688px;
+            height: 687px;
+            box-sizing: border-box;
+
+            /* White */
+            border: 1px solid #FFFFFF;
+        }
+
+        .editor {
+            /* editor */
+
+            position: absolute;
+            left: 29px;
+            top: 156px;
+            width: 698px;
+            height: 687px;
+            background: #FFFFFF;
+        }
+
+        .title {
+            /* title */
+
+            position: absolute;
+            left: 29px;
+            top: 32px;
+            width: 1386px;
+            height: 124px;
+            background: #FFFFFF;
+        }
+
+
+        .submit {
+            /* submit */
+            position: absolute;
+            left: 429px;
+            top: 849px;
+            width: 153px;
+            height: 51px;
+            border-radius: 50px;
+            background: #F3F3F3;
+            box-sizing: border-box;
+            border: 0px solid #7C6C6C;
+            box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .button_on {
+            box-shadow: inset 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit_text {
+            /* 分析 */
+            position: absolute;
+            left: 42px;
+            top: 9px;
+            width: 97px;
+            height: 34px;
+            font-family: MiSans-Normal, serif;
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 0em;
+            color: #3D3D3D;
+        }
+
+    </style>
+    <script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--<h1>Upload Source For Analysis</h1>-->
+<!--<form action="/" enctype="multipart/form-data" method="post">-->
+<!--    <input type="file" name="multi-files" multiple>-->
+<!--    <input type="submit" value="Upload">-->
+<!--</form>-->
+<div class="bkg">
+    <div class="title">
+        <h1 align="center">Mini Julia Sonar Demo</h1>
+    </div>
+    <div id="editor" class="editor"></div>
+
+    <div id="result" class="result"></div>
+
+    <div id="submit" class="submit"><span class="submit_text">Analyze</span></div>
+
+</div>
+
+<script type="text/javascript">
+    const editorElem = document.getElementById("editor")
+    const flask = new CodeFlask(editorElem, {language: 'js', lineNumbers: true});
+    flask.updateCode('a = 123\n' +
+        'a = "ns"\n' +
+        'if a == 0\n' +
+        '            b = 2\n' +
+        '        elseif a == 1\n' +
+        '            b = 2.2 + b\n' +
+        '        elseif a > 2\n' +
+        '            b = 2 * b\n' +
+        '        else\n' +
+        '            b = true\n' +
+        '        end\n' +
+        '\n' +
+        'println(b)\n' +
+        '\n');
+
+
+    var highlighted;
+
+    function highlight(xid)
+    {
+        var elms = document.querySelectorAll('[xid="' + xid + '"]');
+        for (k in elms) {
+            v = elms[k]
+            v.className = "active";
+        }
+        highlighted = xid;
+    }
+
+    function clearHighlight() {
+        var elms = document.querySelectorAll('[xid="' + highlighted + '"]');
+        for (k in elms) {
+            v = elms[k]
+            v.className = "";
+        }
+    }
+
+    function submit() {
+        alert(1)
+    }
+
+    function send_code(code, f) {
+        console.log(code);
+        $.ajax("http://localhost:8000/result", {
+            mimeType: 'text/plain; charset=x-user-defined',
+            type: "POST",
+            data: code,
+            contentType: "text/plain",
+            dataType: "text",
+            context: document.body,
+            success: [function (data) {
+                // clearResult()
+                console.log("done. data: ", data);
+                let result = document.getElementById("result");
+                result.innerHTML = "<div>" + data + "</div>";
+                f()
+            }],
+            error: function (err) {
+                console.log("error.");
+                console.error(err);
+                alert("The sever seems crashed...")
+            }
+        });
+
+
+    }
+
+    function clearResult() {
+        setResult('')
+    }
+
+    function setResult(data) {
+        const res = document.getElementById("result");
+        res.innerHTML = data
+    }
+
+
+
+    window.onload = () => {
+        const submitEle = document.getElementById("submit");
+
+        submitEle.addEventListener("click", (event) => {
+            // alert("please wait...");
+            let code = flask.getCode();
+            setResult('<h2>Please Wait...</h2>')
+            send_code(code,  ()=> {
+                var tags = document.getElementsByTagName("A")
+                for (var i = 0; i < tags.length; i++) {
+                    tags[i].onmouseover =
+                        function (e) {
+                            clearHighlight();
+                            var xid = e.toElement.getAttribute('xid');
+                            highlight(xid);
+                        }
+                }
+            });
+        })
+        submitEle.addEventListener("mouseover", (event) => {
+            if (event.target.id === "submit") {
+                event.target.classList.add("button_on")
+            }
+        })
+        submitEle.addEventListener("mouseleave", (event) => {
+            event.target.classList.remove("button_on")
+        })
+    }
+</script>
+
+</body>
+</html>

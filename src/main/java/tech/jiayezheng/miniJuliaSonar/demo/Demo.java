@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 public class Demo {
 
     private static File OUTPUT_DIR;
 
     private static final String CSS = $.readResource("tech/jiayezheng/miniJuliaSonar/css/demo.css");
-    private static final String JS = $.readResource("tech/jiayezheng/miniJuliaSonar/css/highlight.js");
-    private static final String JS_DEBUG = $.readResource("tech/jiayezheng/miniJuliaSonar/css/highlight-debug.js");
+    private static final String JS = $.readResource("tech/jiayezheng/miniJuliaSonar/js/highlight.js");
+    private static final String JS_DEBUG = $.readResource("tech/jiayezheng/miniJuliaSonar/js/highlight-debug.js");
 
     private Analyzer analyzer;
     private String rootPath;
@@ -63,8 +64,8 @@ public class Demo {
         $.msg("\nGenerating HTML");
         makeOutputDir();
 
-//        linker = new Linker(rootPath, OUTPUT_DIR);
-//        linker.findLinks(analyzer);
+        linker = new Linker(rootPath, OUTPUT_DIR);
+        linker.findLinks(analyzer);
 
         int rootLength = rootPath.length();
 
@@ -100,14 +101,57 @@ public class Demo {
 
         try {
             source = $.readFile(path);
-        } catch(Exception e) {
-            $.die("Failed to read file: "+ path);
+        } catch (Exception e) {
+            $.die("Failed to read file:" + path);
             return "";
         }
 
-
         List<Style> styles = new ArrayList<>();
-        return "";
+        styles.addAll(linker.getStyles(path));
+
+        String styledSource = new StyleApplier(path, source, styles).apply();
+        String outline = new HtmlOutline(analyzer).generate(path);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>\n")
+                .append("<head>\n")
+                .append("<meta charset=\"utf-8\">\n")
+                .append("<title>").append(path).append("</title>\n")
+                .append("<style type='text/css'>\n").append(CSS).append("\n</style>\n")
+//                .append("<script language=\"JavaScript\" type=\"text/javascript\">\n")
+//                .append(Analyzer.self.hasOption("debug") ? JS_DEBUG : JS)
+//                .append("</script>\n")
+                .append("</head>\n<body>\n")
+                .append("<table width=100% border='1px solid gray'><tr>")
+                .append("<td>")
+                .append("<pre>")
+                .append(addLineNumbers(styledSource))
+                .append("</pre>")
+                .append("</td>")
+                .append("<td valign='top'>")
+                .append(outline)
+                .append("</td>")
+                .append("</tr></table></body></html>");
+        return sb.toString();
+    }
+
+    private String addLineNumbers(String source) {
+        StringBuilder result = new StringBuilder((int) (source.length() * 1.2));
+        int count = 1;
+        for (String line : source.split("\n")) {
+            result.append("<span class='lineno'>");
+            result.append(String.format("%1$4d", count++));
+            result.append("</span> ");
+            result.append(line);
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
+    private static void usage() {
+        $.msg("usage():\n" );
+        $.msg("\tto run:     java -jar target/miniJuliaSonar-<version>.jar <workdir> <outdir>\n");
+        // $.msg("\tto test:     java -jar target/miniJuliaSonar-<version>.jar tech.jiayezheng.miniJuliaSonar.TestInference -generate tests\n");
     }
 
 
@@ -116,6 +160,9 @@ public class Demo {
         Options options = new Options(args);
 
         List<String> argsList = options.getArgs();
+        if(argsList.size() < 1) {
+            usage();
+        }
         String fileOrDir = argsList.get(0);
         OUTPUT_DIR = new File(argsList.get(1));
 

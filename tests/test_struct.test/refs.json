@@ -1,0 +1,19 @@
+[
+	{
+		"ref":{
+			"name":"Tests",
+			"file":"test_struct.jl",
+			"start":40,
+			"end":45
+		},
+		"dests":[
+			{
+				"name":"Tests",
+				"file":"test_struct.jl",
+				"start":7,
+				"end":12,
+				"type":"<struct :Tests>"
+			}
+		]
+	}
+]

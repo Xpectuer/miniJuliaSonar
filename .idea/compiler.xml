@@ -9,10 +9,14 @@
         <module name="miniJuliaSonar" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GUI" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="miniJuliaSonar" options="--add-exports java.base/sun.net.www.protocol.file=ALL-UNNAMED" />
+      <module name="GUI" options="-parameters" />
+      <module name="miniJuliaSonar" options="" />
     </option>
   </component>
 </project>

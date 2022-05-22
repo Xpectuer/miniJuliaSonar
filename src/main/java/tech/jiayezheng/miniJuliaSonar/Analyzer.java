@@ -42,7 +42,7 @@ public class Analyzer {
     public List<String> path = new ArrayList<>();
     private Progress loadingProgress = null;
     public TypeInferencer inferencer = new TypeInferencer();
-    ListMultimap<Node, Binding> references = ArrayListMultimap.create();
+    public ListMultimap<Node, Binding> references = ArrayListMultimap.create();
     public ListMultimap<String, Diagnostic> semanticErrors = ArrayListMultimap.create();
 
     public Stack<CallStackEntry> callStack = new Stack<>();
@@ -179,7 +179,10 @@ public class Analyzer {
             return null;
         }
 
-
+        Type module = getCachedModule(path);
+        if(module != null) {
+            return module;
+        }
         // set new CWD and save the old one on stack
         // current work dir 当前工作路径
         String oldcwd = cwd;
@@ -193,6 +196,25 @@ public class Analyzer {
         setCWD(oldcwd);
 
         return type;
+    }
+
+    @Nullable
+    private Type getCachedModule(String file) {
+        Type t = moduleTable.lookupType($.moduleQname(file));
+        if(t == null) {
+            return null;
+        } else if(t instanceof UnionType) {
+            for (Type tt : ((UnionType) t).types) {
+                if (tt instanceof ModuleType) {
+                    return (ModuleType) tt;
+                }
+            }
+            return  null;
+        } else if (t instanceof ModuleType) {
+            return (ModuleType) t;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -291,7 +313,7 @@ public class Analyzer {
         return sb.toString();
     }
 
-    private List<Binding> getAllBindings() {
+    public List<Binding> getAllBindings() {
         return allBindings;
     }
 

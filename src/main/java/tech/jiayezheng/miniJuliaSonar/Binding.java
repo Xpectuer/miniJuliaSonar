@@ -3,6 +3,7 @@ package tech.jiayezheng.miniJuliaSonar;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tech.jiayezheng.miniJuliaSonar.ast.*;
+import tech.jiayezheng.miniJuliaSonar.type.ModuleType;
 import tech.jiayezheng.miniJuliaSonar.type.Type;
 import tech.jiayezheng.miniJuliaSonar.type.UnionType;
 
@@ -12,10 +13,11 @@ import java.util.Set;
 public class Binding implements Comparable<Object> {
 
 
+
     public enum Kind {
         ATTRIBUTE,    // attr accessed with "." on some other object
         DATATYPE,        // struct definition
-        //        CONSTRUCTOR,  //  functions in struct
+        STRUCT,
         FUNCTION,     // plain function
         METHOD,       // assignment
         MODULE,       // file
@@ -24,6 +26,8 @@ public class Binding implements Comparable<Object> {
         VARIABLE      // local variable
     }
 
+    private boolean isBuiltin = false;
+    private boolean isSynthetic = false;
     @NotNull
     public String name; // unqualified name
 
@@ -33,6 +37,7 @@ public class Binding implements Comparable<Object> {
     public String qname; // qualified name
     public Type type;   // inferred type
     public Kind kind;   // scope level of name usage context
+
 
     public Set<Node> refs = new LinkedHashSet<>(1);
 
@@ -93,7 +98,12 @@ public class Binding implements Comparable<Object> {
 
     @Override
     public int compareTo(@NotNull Object o) {
-        return 0;
+        if (start == ((Binding) o).start) {
+            return end - ((Binding) o).end;
+        } else
+        {
+            return start - ((Binding) o).start;
+        }
     }
 
     public void setQname(@NotNull String qname) {
@@ -114,8 +124,39 @@ public class Binding implements Comparable<Object> {
         return isURL() ? null : fileOrUrl;
     }
 
-    private boolean isURL() {
+    public boolean isURL() {
         return fileOrUrl != null && fileOrUrl.startsWith("http://");
+    }
+
+
+    public boolean isBuiltin() {
+        return isBuiltin;
+    }
+
+    public boolean isSynthetic() {
+        return isSynthetic;
+    }
+
+
+    public String  getFirstFile() {
+        Type bt = type;
+        if (bt instanceof ModuleType) {
+            String file = bt.asModuleType().file;
+            return file != null ? file : "<built-in module>";
+        }
+
+        String file = getFile();
+        if (file != null) {
+            return file;
+        }
+
+        return "<built-in module>";
+    }
+
+
+    @Nullable
+    public String getURL() {
+        return isURL() ? fileOrUrl : null;
     }
 
 

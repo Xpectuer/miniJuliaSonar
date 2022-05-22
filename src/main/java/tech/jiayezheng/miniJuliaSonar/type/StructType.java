@@ -14,7 +14,7 @@ public class StructType extends Type {
 
     public StructType(@NotNull String name, @Nullable State parent) {
         this.name = name;
-        this.setTable(new State(parent, State.StateType.GLOBAL));
+        this.setTable(new State(parent, State.StateType.STRUCT));
 
         table.setType(this);
         if (parent != null) {

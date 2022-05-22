@@ -1,0 +1,56 @@
+====================================
+[Sun May 22 2022 01:38:10 GMT+0800 (China Standard Time)]
+ AST cache is at: /private/var/folders/8t/7x4hxj395mv4fzw_hf0jd29m0000gn/T/juliaSonar-b1a9ed73-5d62-4751-9206-233c1089d459/ast_cache
+started: julia
+Loading and analyzing files
+
+100% (1 of 1)
+   SPEED:   500/s
+   AVG SPEED:   250/s
+   ETA: 0:0:0
+   PARSE ERRS: 0
+       
+
+Finished loading files. 0 functions were called.
+Analyzing uncalled functions
+
+---------------- analysis summary ----------------
+- total time: 0:0:3
+- modules loaded: 1
+- semantic problems: 5
+- failed to parse: 0
+- number of definitions: 7
+- number of cross references: 7
+- number of references: 7
+- resolved names: 4
+- unresolved names: 3
+- name resolve rate:  57%
+---------------- memory stats ----------------
+- total collections: 0
+- total collection time: 0:0:0
+- total memory: 512M
+
+Generating HTML
+Add xref links
+
+Adding ref links
+
+100% (7 of 7)
+   SPEED:   875/s
+   AVG SPEED:   777/s
+   ETA: 0:0:0
+   PARSE ERRS: 0
+       
+
+100% (1 of 1)
+   SPEED:     0/s
+   AVG SPEED:     1/s
+   ETA: 0:0:0
+   PARSE ERRS: 0
+       
+
+Wrote 1 files to /var/folders/8t/7x4hxj395mv4fzw_hf0jd29m0000gn/T/juliaSonarT/gui_out
+---------------- memory stats ----------------
+- total collections: 0
+- total collection time: 0:0:0
+- total memory: 512M

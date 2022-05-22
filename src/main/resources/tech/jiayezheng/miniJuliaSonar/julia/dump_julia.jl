@@ -15,12 +15,12 @@ mutable struct DecoratedAST
 end
 
 
+
 macro TRIVIAL()
     -1
 end
 
 filename_processing = "undefined"
-const offsetBegin = length("begin ")
 
 
 
@@ -56,6 +56,10 @@ hasNoBody(cst) = (cst.args == nothing || cst.args == [])
 
 function build_dst(cst)
     global filename_processing
+
+    # identify struct initialization
+    struct_name_table = Set()
+
     function pre_process_no_body(cst)
         head, val = cst.head , cst.val
         # workaorund on function composition sugarelseif head.val == "∘"
@@ -67,7 +71,7 @@ function build_dst(cst)
     end
 
     function pre_process_with_body(cst)
-      # workaorund on assignment
+        # workaorund on operation
         head = cst.head
 
         if isa(head,EXPR)
@@ -109,9 +113,11 @@ function build_dst(cst)
         function markCall(dst)
             # mark function call or call combination
             args = dst.args
-            if args[1].julia_sonar_node_type == :IDENTIFIER
+            name_type = args[1].julia_sonar_node_type
+
+            if name_type == :IDENTIFIER
                 pushfirst!(args, DecoratedAST(:SCALL,"scall",false,[],@TRIVIAL,@TRIVIAL,false))
-            elseif args[1].julia_sonar_node_type == :block
+            elseif name_type == :block
                 pushfirst!(args, DecoratedAST(:CCALL,"ccall",false,[],@TRIVIAL,@TRIVIAL,false))
             end
         end
@@ -159,7 +165,7 @@ function build_dst(cst)
         if hasNoBody(cst)
             head, val = pre_process_no_body(cst)
             # println(offset, ":", offset + cst.span, "\t", CSTParser.valof(cst))
-            dst = DecoratedAST(head, val, false , [], offset, offset + cst.span,false)
+            dst = DecoratedAST(head, val, false , [], offset - 1, offset + cst.span - 1,false)
             offset += cst.fullspan
             #println("\t"* string(dst.value))
 
@@ -184,7 +190,11 @@ function build_dst(cst)
         end
     end
 
-    root = DecoratedAST(:ROOT, "ROOT", true, [], @TRIVIAL, @TRIVIAL,false)
+    filename_array = split(filename_processing,"/")
+    modname = filename_array[lastindex(filename_array)]
+    root = DecoratedAST(:ROOT, modname, true, [], @TRIVIAL, @TRIVIAL, false)
+
+    offsetBegin = length("begin ")
     offset = 1 - offsetBegin
     for a in cst
         child, offset = build_dst_recursive(a, offset)
@@ -330,7 +340,8 @@ function dump_json(filename, output , endmark)
 
         Meta.parse("begin $src end")
         cst = CSTParser.parse("begin $src end")
-        print_cst(cst)
+
+        #print_cst(cst)
 
         dst = build_dst(cst)
         out = open(output, "w")
@@ -342,6 +353,7 @@ function dump_json(filename, output , endmark)
     finally
         _end = open(endmark, "w")
         close(_end)
+        println("julia dumper end!!!")
     end
 end
 
@@ -349,12 +361,11 @@ println("julia dumper started!!!")
 # local test code
 function test_dump()
     endmark = "end"
-    tests = ["test1", "test_macro", "test_short", "test_func"]
+    tests = ["test1", "test_short", "test_func", "control_flow", "test_struct","simple"]
     for test in tests
-        dump_json(test*".jl", test*".json", endmark)
+        dump_json(test*".jl", "json/"*test*".json", endmark)
     end
     rm("./"*endmark)
 end
 
-@time test_dump()
-println("julia dumper end!!!")
+# time test_dump()

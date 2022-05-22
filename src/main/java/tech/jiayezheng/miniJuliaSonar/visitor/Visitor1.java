@@ -15,8 +15,6 @@ public interface Visitor1<T, P> {
 
     default T visit(@NotNull Node node, P param) {
         switch (node.nodeType) {
-            case Root:
-                return visit((Root) node, param);
             case KeyWord:
                 return visit((KeyWord) node, param);
             case Assign:
@@ -135,8 +133,6 @@ public interface Visitor1<T, P> {
         }
         return result;
     }
-
-    T visit(Root node, P param);
 
     T visit(KeyWord node, P param);
 

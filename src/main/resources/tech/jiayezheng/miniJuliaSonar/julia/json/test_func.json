@@ -1,0 +1,56 @@
+{
+	"julia_sonar_node_type":"ROOT","value":"test_func.jl","has_args":true,"args":[{
+		"julia_sonar_node_type":"function","value":"nothing","has_args":true,"args":[{
+			"julia_sonar_node_type":"FUNCTION","value":"function","has_args":false,"args":[],"_start":0,"_end":8,"nonlocal":false},
+{
+			"julia_sonar_node_type":"call","value":"nothing","has_args":true,"args":[{
+				"julia_sonar_node_type":"SCALL","value":"scall","has_args":false,"args":[],"_start":-1,"_end":-1,"nonlocal":false},
+{
+				"julia_sonar_node_type":"IDENTIFIER","value":"plot","has_args":false,"args":[],"_start":9,"_end":13,"nonlocal":false},
+{
+				"julia_sonar_node_type":"LPAREN","value":"(","has_args":false,"args":[],"_start":13,"_end":14,"nonlocal":false},
+{
+				"julia_sonar_node_type":"IDENTIFIER","value":"x","has_args":false,"args":[],"_start":14,"_end":15,"nonlocal":false},
+{
+				"julia_sonar_node_type":"COMMA","value":",","has_args":false,"args":[],"_start":15,"_end":16,"nonlocal":false},
+{
+				"julia_sonar_node_type":"IDENTIFIER","value":"y","has_args":false,"args":[],"_start":17,"_end":18,"nonlocal":false},
+{
+				"julia_sonar_node_type":"parameters","value":"nothing","has_args":true,"args":[{
+					"julia_sonar_node_type":"kw","value":"nothing","has_args":true,"args":[{
+						"julia_sonar_node_type":"IDENTIFIER","value":"style","has_args":false,"args":[],"_start":20,"_end":25,"nonlocal":false},
+{
+						"julia_sonar_node_type":"OPERATOR","value":"=","has_args":false,"args":[],"_start":25,"_end":26,"nonlocal":false},
+{
+						"julia_sonar_node_type":"STRING","value":"solid","has_args":false,"args":[],"_start":26,"_end":33,"nonlocal":false}],"_start":20,"_end":25,"nonlocal":false},
+{
+					"julia_sonar_node_type":"COMMA","value":",","has_args":false,"args":[],"_start":33,"_end":34,"nonlocal":false},
+{
+					"julia_sonar_node_type":"kw","value":"nothing","has_args":true,"args":[{
+						"julia_sonar_node_type":"IDENTIFIER","value":"width","has_args":false,"args":[],"_start":35,"_end":40,"nonlocal":false},
+{
+						"julia_sonar_node_type":"OPERATOR","value":"=","has_args":false,"args":[],"_start":40,"_end":41,"nonlocal":false},
+{
+						"julia_sonar_node_type":"INTEGER","value":"1","has_args":false,"args":[],"_start":41,"_end":42,"nonlocal":false}],"_start":35,"_end":40,"nonlocal":false},
+{
+					"julia_sonar_node_type":"COMMA","value":",","has_args":false,"args":[],"_start":42,"_end":43,"nonlocal":false},
+{
+					"julia_sonar_node_type":"kw","value":"nothing","has_args":true,"args":[{
+						"julia_sonar_node_type":"IDENTIFIER","value":"color","has_args":false,"args":[],"_start":44,"_end":49,"nonlocal":false},
+{
+						"julia_sonar_node_type":"OPERATOR","value":"=","has_args":false,"args":[],"_start":49,"_end":50,"nonlocal":false},
+{
+						"julia_sonar_node_type":"STRING","value":"black","has_args":false,"args":[],"_start":50,"_end":57,"nonlocal":false}],"_start":44,"_end":49,"nonlocal":false},
+{
+					"julia_sonar_node_type":"COMMA","value":",","has_args":false,"args":[],"_start":57,"_end":58,"nonlocal":false},
+{
+					"julia_sonar_node_type":"VarArg","value":"nothing","has_args":true,"args":[{
+						"julia_sonar_node_type":"IDENTIFIER","value":"kwargs","has_args":false,"args":[],"_start":59,"_end":65,"nonlocal":false},
+{
+						"julia_sonar_node_type":"OPERATOR","value":"...","has_args":false,"args":[],"_start":65,"_end":68,"nonlocal":false}],"_start":59,"_end":65,"nonlocal":false}],"_start":20,"_end":25,"nonlocal":false},
+{
+				"julia_sonar_node_type":"RPAREN","value":")","has_args":false,"args":[],"_start":68,"_end":69,"nonlocal":false}],"_start":9,"_end":13,"nonlocal":false},
+{
+			"julia_sonar_node_type":"block","value":"nothing","has_args":false,"args":[],"_start":78,"_end":78,"nonlocal":false},
+{
+			"julia_sonar_node_type":"END","value":"end","has_args":false,"args":[],"_start":78,"_end":81,"nonlocal":false}],"_start":0,"_end":8,"nonlocal":true}],"_start":-1,"_end":-1,"nonlocal":false}

@@ -22,19 +22,19 @@ import static tech.jiayezheng.miniJuliaSonar.ast.NodeType.*;
 
 // parser -> dump.json -> parser.toAst
 public class Parser {
-    private static final String dumpJuliaResource = "tech/jiayezheng/miniJuliaSonar/julia/dump_julia.jl";
     private Process juliaProcess;
     private String jsonizer;
-    private static final String JULIA_EXE = "julia";
     private String parserLog;
     private String exchangeFile;
     private String endMark;
     private String file;
     private String content;
-
+    private final Set<String> typeTable = new HashSet<>();
 
     private static final Set<String> keywordTypes = new HashSet<>();
     private static final int TIMEOUT = 30000;
+    private static final String dumpJuliaResource = "tech/jiayezheng/miniJuliaSonar/julia/dump_julia.jl";
+    private static final String JULIA_EXE = "julia";
 
 
     static {
@@ -216,7 +216,9 @@ public class Parser {
 
         if (type.equals("ROOT")) {
             List<Node> args = convertNodeList(jsonObj.get("args"));
-            return new Root(args, file);
+            Symbol symbol = new Symbol((String) jsonObj.get("value"), -1, -1, file);
+            Block block = new Block(args, -1, -1, file);
+            return new JuliaModule(symbol, block, start, end, file);
         }
 
         if (type.equals("block")) {
@@ -524,7 +526,7 @@ public class Parser {
                         nodeAfterCatch = it.next();
                     }
 
-                    while(nodeAfterCatch.nodeType == NodeType.JuliaBool) {
+                    while (nodeAfterCatch.nodeType == NodeType.JuliaBool) {
                         nodeAfterCatch = it.next();
                     }
 
@@ -691,18 +693,27 @@ public class Parser {
         }
 
         assert k1.name.equals("struct");
-        Node nodeAfterTRUE = it.next();
+
         Symbol name = null;
         Symbol base = null;
-        if (nodeAfterTRUE instanceof BinOp) {
-            BinOp subtypeOp = (BinOp) nodeAfterTRUE;
-            name = (Symbol) subtypeOp.left;
-            base = (Symbol) subtypeOp.right;
-        } else if (nodeAfterTRUE instanceof Symbol) {
-            name = (Symbol) nodeAfterTRUE;
+        Block body = null;
+
+        while (it.hasNext()) {
+            Node nodeAfterTRUE = it.next();
+            if (nodeAfterTRUE instanceof BinOp) {
+                BinOp subtypeOp = (BinOp) nodeAfterTRUE;
+                name = (Symbol) subtypeOp.left;
+                base = (Symbol) subtypeOp.right;
+            } else if (nodeAfterTRUE instanceof Symbol) {
+                name = (Symbol) nodeAfterTRUE;
+            } else if (nodeAfterTRUE instanceof Block) {
+                body = (Block) nodeAfterTRUE;
+            }
         }
 
-        Block body = (Block) it.next();
+        if (name != null) {
+            this.typeTable.add(name.name);
+        }
 
         return new StructDef(mutable, name, base, body, start, end, file);
     }
@@ -725,7 +736,12 @@ public class Parser {
                 }
             }
 
-            return new Call(name, args, kws, start, end, file);
+            Call ret = new Call(name, args, kws, start, end, file);
+            if (typeTable.contains(name.name)) {
+                ret.markInit();
+            }
+
+            return ret;
 
         } else if (head.name.equals("ccall")) {
             // composite call
@@ -791,7 +807,7 @@ public class Parser {
         Call call = (Call) it.next();
         Node n = call.name;
         Symbol name = null;
-        if(n instanceof Symbol) {
+        if (n instanceof Symbol) {
             name = (tech.jiayezheng.miniJuliaSonar.ast.Symbol) n;
         } else {
             $.die("Invalid Function definition: \" + call.name + \"Please check julia parser!!!");
@@ -811,8 +827,12 @@ public class Parser {
         assert !it.hasNext();
 
         FuncDef ret = new FuncDef(name, params, defaults, body, start, end, file);
-        if(kwargs.size() == 1) { ret.setKWarg((Symbol) kwargs.get(0));}
-        if(varargs.size() == 1) { ret.setKWarg((Symbol) varargs.get(0));}
+        if (kwargs.size() == 1) {
+            ret.setKWarg((Symbol) kwargs.get(0));
+        }
+        if (varargs.size() == 1) {
+            ret.setKWarg((Symbol) varargs.get(0));
+        }
 
         return ret;
 
@@ -893,7 +913,6 @@ public class Parser {
         Node left = operands.get(0);
         Node right = operands.get(1);
         Node ret = convertBinOp(op, left, right, start, end, file);
-
 
         for (int i = 1; i < operators.size(); i++) {
             op = operators.get(i);
@@ -1042,8 +1061,23 @@ public class Parser {
 
     private void handleParamList(Node list, List<Node> parameter, List<Node> defaults, List<Node> varargs, List<Node> kwargs) {
 
-        if (list.nodeType == NodeType.Tuple) {
-            List<Node> args = ((Tuple) list).elts;
+        if (list.nodeType == NodeType.Tuple || list.nodeType == NodeType.Block) {
+            List<Node> args = null;
+            switch (list.nodeType) {
+                case Tuple:
+                    args = ((Tuple) list).elts;
+                    break;
+                case Block:
+                    args = ((Block) list).args;
+                    break;
+                default:
+                    $.die("Unexpected input for parameter list, please check AST");
+            }
+
+            if(args == null) {
+                return;
+            }
+
             for (Node e : args) {
                 if (e.nodeType == NodeType.Symbol) {
                     parameter.add(e);
@@ -1056,7 +1090,7 @@ public class Parser {
                     Node value = ((KW) e).value;
                     parameter.add(key);
                     defaults.add(value);
-                } else if (list.nodeType == NodeType.Tuple) {
+                } else if (e.nodeType == NodeType.Tuple) {
 
                     List<Node> param = ((Tuple) list).elts;
                     for (Node ee : param) {

@@ -21,6 +21,15 @@ public class State {
     @Nullable
     public Set<String> globalNames;
 
+    public Type lookupType(String name) {
+        Set<Binding> bs = lookup(name);
+        if (bs == null) {
+            return null;
+        } else {
+            return makeUnion(bs);
+        }
+    }
+
 
     public enum StateType {
         STRUCT,
@@ -209,6 +218,15 @@ public class State {
                 }
             }
         }
+    }
+
+    @NotNull
+    public Collection<Binding> values() {
+        Set<Binding> ret = new HashSet<>();
+        for (Set<Binding> bs : table.values()) {
+            ret.addAll(bs);
+        }
+        return ret;
     }
 
     /**
