@@ -12,8 +12,10 @@
 ### Metaprogramming
 - [ ] macro support for julia
 - [ ] Quote & Expr ... type
+
 ### Parallelism
 - [ ] Vectorized "dot" Operators
+
 ### Miscs
 - [ ] Build-in Library Analysis
 - [ ] assign in global expr (waiting for CSTParser fix)
