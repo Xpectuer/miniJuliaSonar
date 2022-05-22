@@ -17,7 +17,7 @@
 - [ ] Vectorized "dot" Operators
 
 ### Miscs
-- [ ] Build-in Library Analysis
+- [ ] Built-in Library Analysis
 - [ ] assign in global expr (waiting for CSTParser fix)
 
 ### Quick Starts
