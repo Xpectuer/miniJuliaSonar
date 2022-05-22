@@ -3,7 +3,7 @@
 - [x] test trigger module of dump_julia
 - [x] Julia Parser
 - [x] Type Interferences
-- [ ] Html Output
+- [x] Html Output
 
 ### Syntactic features
 - [x] Chained Arithmetic
