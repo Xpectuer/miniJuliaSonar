@@ -55,6 +55,7 @@ public class $ {
         return makePathString(systemTemp, "juliaSonar-" + Analyzer.self.sid);
     }
 
+    @NotNull
     public static String getSystemTempDir() {
         String tmp = System.getProperty("java.io.tmpdir");
         String sep = System.getProperty("file.separator");
