@@ -1,5 +1,9 @@
 # Version 1.0.0
-### Project
+### Overview 
+
+Type inference is a fairly widely used technique, commonly found in IDEs, modern compilers, code bug checking, and even data cleaning. This project implements a type inference framework for Julia, a programming language widely used in practice in the fields of numerical computation and optimization, which models all the static semantics of the [Julia](https://julialang.org/) programming language and provides type inference functionality.
+
+### Project Modules
 - [x] test trigger module of dump_julia
 - [x] Julia Parser
 - [x] Type Interferences
