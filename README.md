@@ -7,18 +7,18 @@
 
 ### Syntactic features
 - [x] Chained Arithmetic
-- [ ] Auto Return Last Expr
+- [x] Auto Return Last Expr
  
 ### Metaprogramming
-- [ ] macro support for julia
-- [ ] Quote & Expr ... type
+- [x] macro support for julia
+- [x] Quote & Expr ... type
 
 ### Parallelism
-- [ ] Vectorized "dot" Operators
+- [x] Vectorized "dot" Operators
 
 ### Miscs
-- [ ] Built-in Library Analysis
-- [ ] assign in global expr (waiting for CSTParser fix)
+- [x] Built-in Library Analysis
+- [x] assign in global expr (waiting for CSTParser fix)
 
 ### Quick Starts
 To run:
